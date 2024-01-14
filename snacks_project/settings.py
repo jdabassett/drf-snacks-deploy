@@ -44,15 +44,16 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
 
-# ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
-# ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+
+CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
+CORS_ALLOWED_ALL_ORIGINS = env.bool("ALLOWED_ALL_ORIGINS")
 
 
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
     # third-party
     "rest_framework",
     "rest_framework_simplejwt",
+    "corsheaders",
 
     # local
     "accounts.apps.AccountsConfig",
@@ -79,6 +81,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
