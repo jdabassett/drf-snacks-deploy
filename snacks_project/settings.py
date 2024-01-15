@@ -22,7 +22,7 @@ env = environ.Env(
     SECRET_KEY = (str, ""),
     DEBUG=(bool, False),
     ENVIRONMENT=(str, "PRODUCTION"),
-    ALLOW_ALL_ORIGINS=(bool, False),
+    ALLOW_ALL_ORIGINS=(bool, True),
     ALLOWED_HOSTS=(list,[]),
     ALLOWED_ORIGINS=(list, []),
     DATABASE_ENGINE=(str, ""),
@@ -31,6 +31,7 @@ env = environ.Env(
     DATABASE_PASSWORD=(str, ""),
     DATABASE_HOST=(str, ""),
     DATABASE_PORT=(int, 5432),
+
 )
 
 environ.Env.read_env()
@@ -47,8 +48,8 @@ DEBUG = env.bool("DEBUG")
 
 ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
 
-CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS"))
 CORS_ALLOWED_ALL_ORIGINS = env.bool("ALLOWED_ALL_ORIGINS")
+CORS_ALLOWED_ORIGINS = tuple(env.list("ALLOWED_ORIGINS", default=[]))
 
 
 from datetime import timedelta
