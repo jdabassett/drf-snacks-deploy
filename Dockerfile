@@ -37,3 +37,6 @@ RUN pip install -r requirements.txt
 
 # This line copies the entire current directory (represented by .) from the host file system to the /code directory inside the Docker container. This copies the application code and any other files needed by the application into the Docker container.
 COPY . /code/
+
+# command to delete all images
+# docker container stop $(docker container ls -a -q); docker system prune -a -f --volumes
